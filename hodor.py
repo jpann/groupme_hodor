@@ -40,7 +40,7 @@ def message():
 	if nick.lower() == os.environ['BOT_NAME']:
 		return
 
-	if os.environ['BOT_NAME'] in message::
+	if os.environ['BOT_NAME'] in message:
 		send_message("Hodor")
 	
 	if message.endswith("?"):
