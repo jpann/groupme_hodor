@@ -17,6 +17,16 @@ def stripped(text):
 def get_random(min, max):
 	return random.randint(min, max)
 
+def send_message(text):
+	bot_id = os.environ['BOT_ID']
+
+	message = {
+		'text' : text,
+		'bot_id' : bot_id
+	}
+
+	r = requests.post("https://api.groupme.com/v3/bots/post", params = message)
+
 @app.route('/', methods=['POST'])
 def message():
 	if not request.json or not 'text' in request.json:
@@ -26,5 +36,8 @@ def message():
 	nick = request.json['name']
 	message = request.json['text']
 	message = stripped(message)
+	
+	bot_id = os.environ['BOT_ID']
 
-	return 'Hello world!'
+	if message.lower() == "hodor" and nick.lower() != "hodor":
+		send_message("Hodor")
