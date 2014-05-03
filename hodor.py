@@ -35,9 +35,14 @@ def message():
 	user_id = request.json['user_id']
 	nick = request.json['name']
 	message = request.json['text']
-	message = stripped(message)
+	message = stripped(message).strip()
 	
-	bot_id = os.environ['BOT_ID']
+	if nick.lower() == os.environ['BOT_NAME']:
+		return
 
-	if message.lower() == "hodor" and nick.lower() != "hodor":
+	if os.environ['BOT_NAME'] in message::
 		send_message("Hodor")
+	
+	if message.endswith("?"):
+		if get_random(1, 100) <= 10:
+			send_message("Hodor")
