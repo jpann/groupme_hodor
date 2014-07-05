@@ -27,22 +27,46 @@ def send_message(text):
 
 	r = requests.post("https://api.groupme.com/v3/bots/post", params = message)
 
+def get_random_hodor():
+	r = get_random(1, 10)
+
+	if r == 1:
+		return "Hodor"
+	elif r == 2:
+		return "HODOR"
+	elif r == 3:
+		return "Hoooodor"
+	elif r == 4:
+		return "Ho-dor"
+	elif r == 5:
+		return "Hodor Hodor Hodor"
+	elif r == 6:
+		return  "*Shakes* Hodor Hodor Hodor"
+	elif r == 7:
+		return "HODOR!!!!"
+	elif r == 8:
+		return "Hodor..."
+	elif r == 9:
+		return "Hooooooodoooooooooooooooor"
+	elif r = 10:
+		return "Hodor?"
+
 @app.route('/', methods=['POST'])
 def message():
 	if not request.json or not 'text' in request.json:
 		return
 	
 	user_id = request.json['user_id']
-	nick = request.json['name']
-	message = request.json['text']
+	nick = request.json['name'].lower()
+	message = request.json['text'].lower()
 	message = stripped(message).strip()
 	
-	if nick.lower() == os.environ['BOT_NAME'] or nick.lower() == os.environ['HAL_BOT_NAME']:
+	if nick in os.environ['IGNORE_NAMES'].split('|'):
 		return
 
-	if os.environ['BOT_NAME'] in message:
-		send_message("Hodor")
+	if os.environ['BOT_NAME'].lower() in message:
+		send_message(get_random_hodor())
 	
 	if message.endswith("?"):
 		if get_random(1, 1000) <= 10:
-			send_message("Hodor")
+			send_message(get_random_hodor())
