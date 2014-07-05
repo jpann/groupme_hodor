@@ -48,7 +48,7 @@ def get_random_hodor():
 		return "Hodor..."
 	elif r == 9:
 		return "Hooooooodoooooooooooooooor"
-	elif r = 10:
+	elif r == 10:
 		return "Hodor?"
 
 @app.route('/', methods=['POST'])
